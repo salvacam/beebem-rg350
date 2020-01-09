@@ -1,0 +1,117 @@
+# default.kbd
+#
+# This is the default configuration file that BeebEm loads before any matching
+# .kbd file. This file is intended to set defaults between loading disc images.
+
+
+# Video emulation (both Graphics modes and Teletext):
+# ---------------------------------------------------
+
+# GP2x is normal way up (as you'd expect).
+SET ORIENTATION=NORMAL
+
+# GP2x is up-side down (thus the buttons Y, A, B & X become a D-Pad):
+#SET ORIENTATION=FLIPPED
+
+# Video emulation, TOP = scanlines 0-240, BOTTOM = scanlines 16-255,
+# CENTER (or CENTRE) = scanlines 8-248, SCALED = Beeb's 256 scanlines are
+# scaled to the GP2x's 240 scanlines (deletes every 16th scanline):
+SET VSCALE=SCALED
+#SET VSCALE=TOP
+#SET VSCALE=BOTTOM
+#SET VSCALE=CENTER
+
+# GP2x stick uses smart mode by default:
+SET STICK=SMART
+
+# VSYNC offset (you probably don't need to change this):
+SET VSYNCOFFSET=NORMAL
+# #SET VSYNCOFFSET=NUDGE
+
+
+# Processing speed:
+# -----------------
+
+# Set the GP2x's processor speed. Use 240 for teletext games and 200 for
+# everything else, some games clock down, even with sound:
+
+# Default to 200Mhz:
+SET SPEED=200
+
+#SET SPEED=150
+#SET SPEED=160
+#SET SPEED=170
+#SET SPEED=180
+#SET SPEED=190
+#SET SPEED=200
+#SET SPEED=210
+#SET SPEED=220
+#SET SPEED=230
+#SET SPEED=240
+
+
+# 8271 floppy discs:
+# ------------------
+
+# RO = Read Only, RW=Read Write.
+
+# First floppy drive (0):
+SET FD0_TAB=RO
+#SET FD0_TAB=RW
+
+# Second floppy drive (1):
+SET FD1_TAB=RO
+#SET FD1_TAB=RW
+
+# Disable the hardware cursor always: '1', 'YES', 'TRUE', 'Y' equals a positive,
+# everything else is considered a negative:
+SET DISABLE_CURSOR=NO
+#SET DISABLE_CURSOR=YES
+
+# Default keys:
+# -------------
+
+# NOTHING = key is not mapped.
+# VOLUME = key controls volume (only works on the actual volume buttons).
+
+# Normal screen orientation:
+LEFT=BBC_Z
+RIGHT=BBC_X
+UP=BBC_:
+DOWN=BBC_/
+CLICK=NOTHING
+
+A=BBC_SPACE
+B=BBC_SPACE
+X=BBC_RETURN
+Y=BBC_RETURN
+
+SELECT=BBC_ESCAPE
+
+VOLUP=VOLUME
+VOLDOWN=VOLUME
+
+L=NOTHING
+R=NOTHING
+
+
+# Flipped screen orientation:
+R_LEFT=BBC_X
+R_RIGHT=BBC_Z
+R_UP=BBC_/
+R_DOWN=BBC_:
+R_CLICK=NOTHING
+
+R_A=BBC_X
+R_B=BBC_Z
+R_X=BBC_:
+R_Y=BBC_/
+
+R_SELECT=ESCAPE
+
+R_L=NOTHING
+R_R=NOTHING
+
+R_VOLUP=BBC_SPACE
+R_VOLDOWN=BBC_RETURN
+

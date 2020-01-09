@@ -1,0 +1,59 @@
+TOOLCHAIN = /opt/gcw0-toolchain/usr
+SDL_CONFIG = $(TOOLCHAIN)/mipsel-gcw0-linux-uclibc/sysroot/usr/bin/sdl-config
+
+##arm-open2x-linux-
+#/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/c++/4.1.1
+#//opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1
+
+#INCLUDES = -I. -I/usr/local/open2x/include/c++
+#INCLUDES = -I. -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/c++/4.1.1
+INCLUDES = -I. `$(SDL_CONFIG) --cflags` -I..
+
+
+#DEPINCLUDES = $(INCLUDES) $(SDINCLUDES) -I/usr/local/open2x/include/linux -I/usr/local/open2x/include/c++
+#DEPINCLUDES = $(INCLUDES) $(SDINCLUDES) -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/arm-open2x-linux/include/linux -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/c++/4.1.1
+#DEPINCLUDES = $(INCLUDES) $(SDINCLUDES) -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux
+
+
+#CC = open2x-gcc
+#CC = arm-open2x-linux-gcc
+#CC = /opt/open2x/gcc-4.1.1-glibc-2.3.6/bin/arm-open2x-linux-gcc
+CC = $(TOOLCHAIN)/bin/mipsel-linux-gcc
+AR = $(TOOLCHAIN)/bin/mipsel-linux-ar
+
+#CFLAGS = -O6 $(INCLUDES) $(SDINCLUDES) -Wall -mcpu=arm920 -mtune=arm920t -msoft-float -ffast-math -falign-functions=32 -finline-functions -funroll-all-loops `arm-open2x-linux-sdl-config --cflags` -DDATA_DIR=\"/mnt/sd/beebem/\" -DEG_DEBUG -DWITH_DEBUG_OUTPUT
+#CFLAGS = -O6 $(INCLUDES) $(SDINCLUDES) -Wall -mcpu=arm920 -mtune=arm920t -msoft-float -ffast-math -falign-functions=32 -finline-functions -funroll-all-loops `/opt/open2x/gcc-4.1.1-glibc-2.3.6/bin/sdl-config --cflags` -DDATA_DIR=\"/mnt/sd/beebem/\" -DEG_SLIDEBAR_ASTROFFONLY=1
+# -DEG_DEBUG -DWITH_DEBUG_OUTPUT
+CFLAGS = $(INCLUDES) -Wall -g -DBEEB_DOTIME $(RESOURCES) -DGP2X=1 -DSOUNDSUPPORT -G0 -O3 -march=mips32 -mtune=mips32r2 -DEG_SLIDEBAR_ASTROFFONLY=1
+
+#LINKFLAGS = -lstdc++ `sdl-open2x-config --libs` --static -s
+#LINKFLAGS = -lstdc++ `arm-open2x-linux-sdl-config --libs` --static -s
+LINKFLAGS = -lstdc++ `$(SDL_CONFIG) --libs` --static -s
+
+SDINCLUDES = -I..
+SRCS = sdl.c functions.c log.c window.c widget.c widget_shared.c label.c button.c box.c tickbox.c togglebutton.c \
+	radiobutton.c radiogroup.c slidebar.c progressbar.c virtualzone.c graphics.c graphics_font.c \
+	graphics_font_iso_8859.c image.c skin.c
+
+OBJS = sdl.o functions.o log.o window.o widget.o widget_shared.o label.o button.o box.o tickbox.o togglebutton.o \
+	radiobutton.o radiogroup.o slidebar.o progressbar.o virtualzone.o graphics.o graphics_font.o \
+	graphics_font_iso_8859.o image.o skin.o
+
+.cc.o:
+	$(CC) -c $(CFLAGS) $<
+
+libeg.a: $(OBJS)
+	rm -f libeg.a
+	#arm-open2x-linux-ar rc libeg.a $(OBJS)
+	#/usr/local/open2x/bin/open2x-ar rc libeg.a $(OBJS)
+	$(AR) rc libeg.a $(OBJS)
+
+depend:
+	makedepend -- $(CFLAGS) $(LINKFLAGS) $(SDINCLUDES) -- $(SRCS)
+#	makedepend -- $(DEPINCLUDES) $(CFLAGS) $(LINKFLAGS) $(SDINCLUDES) -- $(SRCS)
+
+clean:
+	rm -f $(OBJS) libeg.a
+
+# DO NOT DELETE
+

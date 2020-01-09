@@ -19,7 +19,7 @@
 
 
 #define BEEBEM_PAGES_QUIT_T "Quit BeebEm:"
-#define BEEBEM_PAGES_QUIT_M "Quit BeebEm and return to GP2X menu?"
+#define BEEBEM_PAGES_QUIT_M "Quit BeebEm and return to RG350 menu?"
 
 
 #define BEEBEM_PAGES_LOADSTATEFAILED_T "Loading state FAILED:"
@@ -67,13 +67,13 @@
 
 
 #define BEEBCONFIG_IMAGEDOESNOTEXIST_T "Loading disc image failed:"
-#define BEEBCONFIG_IMAGEDOESNOTEXIST_M "The supplied command line disc image filename does not exist on the filesystem.\n\nPlease check the filename is correct.\n\n(Remember GP2X filenames are case sensitive. So MyImage does not equal 'myimage'.)"
+#define BEEBCONFIG_IMAGEDOESNOTEXIST_M "The supplied command line disc image filename does not exist on the filesystem.\n\nPlease check the filename is correct.\n\n(Remember RG350 filenames are case sensitive. So MyImage does not equal 'myimage'.)"
 
 #define BEEBCONFIG_ILLEGALFILEEXTENSION_T BEEBCONFIG_IMAGEDOESNOTEXIST_T
 #define BEEBCONFIG_ILLEGALFILEEXTENSION_M "The supplied command line disc image filename does not have an .ssd or .dsd file extension.\n\nOnly disc images ending in .ssd or .dsd images are compatible with this version of BeebEm."
 
 #define BEEBCONFIG_NOMAPPINGFILE_T "No associated mapping file found:"
-#define BEEBCONFIG_NOMAPPINGFILE_M "There does not seem to be a keyboard mapping file associated with this disc image.\n\nSo falling back to default values instead.\n\nIn order to play this game, you may need to reconfigure some of the GP2X buttons manually.\n\nOnce you have mapped the correct keys, press the 'Save game configuration' button on the main menu to store them for next time."
+#define BEEBCONFIG_NOMAPPINGFILE_M "There does not seem to be a keyboard mapping file associated with this disc image.\n\nSo falling back to default values instead.\n\nIn order to play this game, you may need to reconfigure some of the RG350 buttons manually.\n\nOnce you have mapped the correct keys, press the 'Save game configuration' button on the main menu to store them for next time."
 
 
 #define BEEBMEM_READROMERROR_T "Read ROM error:"
@@ -93,7 +93,7 @@
 
 
 #define FILESELECTOR_UNABLETOOPENDIR_T "File selector:"
-#define FILESELECTOR_UNABLETOOPENDIR_M "Unable to open a directory named:\n\n'%s'.\n\nPlease check the value of DISC_IMAGES_DIR.\n\n(It's probably in ./config/default.kbd)."
+#define FILESELECTOR_UNABLETOOPENDIR_M "Unable to open a directory named:\n\n'%s'.\n\nPlease check the value of DISC_IMAGES_DIR.\n\n(It's probably in ~/.beebem/config/default.kbd)."
 
 #define FILESELECTOR_UNABLETOOPENDIR2_T FILESELECTOR_UNABLETOOPENDIR_T
 #define FILESELECTOR_UNABLETOOPENDIR2_M "Unable to open '%s' directory. Failed to create directory entry list."

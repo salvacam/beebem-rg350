@@ -19,6 +19,8 @@
 
 #include <gui/gui.h>
 
+#include <sys/stat.h>
+
 /* BeebEm configuration:
  */
 BeebConfig config;
@@ -198,6 +200,8 @@ int Config_LoadDiscConfig(const char *filename_p)
 static void Initialize_Files(const char *executable_name_p)
 {
 	char cwd[MAX_DIR_LEN], test_buf[MAX_DIR_LEN], test_buf2[MAX_DIR_LEN], *tmp_p;
+	char beebem_home[MAX_DIR_LEN], beebem_home_roms[MAX_DIR_LEN], beebem_home_config[MAX_DIR_LEN];
+	char beebem_home_kbd[MAX_DIR_LEN], beebem_home_saves[MAX_DIR_LEN];
 	FILE *test;
 
 	/* Test for /startup.cnf in cwd, if not found
@@ -205,6 +209,34 @@ static void Initialize_Files(const char *executable_name_p)
 	 * executable's file name, if that works, then use that instead:
 	 */
 	getcwd(cwd, MAX_DIR_LEN);	
+
+	// -------------------------
+	char *beebem_home_str = getenv("HOME");
+	if(beebem_home_str) sprintf(beebem_home, "%s/.beebem", beebem_home_str);
+	printf("set beebem_home:%s\n",beebem_home);
+	if(access(beebem_home,0) == 0) {//exists
+		printf("~/.beebem dir exists\n");
+	}
+	else {
+		printf("~/.beebem dir does not exist, will create\n");
+		int status = mkdir(beebem_home, 0777);
+		if(status == -1) {
+			printf("error during mkdir:%s\n",beebem_home);
+			getcwd(beebem_home, MAX_DIR_LEN);
+			strcat(beebem_home, "/.beebem");
+			mkdir(beebem_home, 0777);
+			printf("set szAppHomePath:%s\n",beebem_home);
+		}
+	}
+	sprintf(beebem_home_roms, "%s/roms", beebem_home);
+	mkdir(beebem_home_roms, 0777);
+	sprintf(beebem_home_config, "%s/config", beebem_home);
+	mkdir(beebem_home_config, 0777);
+	sprintf(beebem_home_kbd, "%s/kbd", beebem_home);
+	mkdir(beebem_home_kbd, 0777);
+	sprintf(beebem_home_saves, "%s/saves", beebem_home);
+	mkdir(beebem_home_saves, 0777);
+	// -------------------------
 
 	strcpy(test_buf, cwd);
 	strcat(test_buf, "startup.cnf");
@@ -266,38 +298,49 @@ static void Initialize_Files(const char *executable_name_p)
 
 	/* ROM image configuration file location:
 	 */
-	strcpy(config.files.romimg_rc_loc, cwd);
-	strcat(config.files.romimg_rc_loc, "/config/romimg.rc");
+	strcpy(config.files.romimg_rc_loc, beebem_home_config);
+	strcat(config.files.romimg_rc_loc, "/romimg.rc");
+	if (access(config.files.romimg_rc_loc,0) != 0) { // home override does not exist
+		strcpy(config.files.romimg_rc_loc, cwd);
+		strcat(config.files.romimg_rc_loc, "/config/romimg.rc");
+	}
 
 	/* romimg_dir:
 	 */
-	strcpy(config.files.romimg_dir, cwd);
-	strcat(config.files.romimg_dir, "/roms/");
+	strcpy(config.files.romimg_dir, beebem_home_roms);  // i.e.  ~/.beebem/roms/
+	strcat(config.files.romimg_dir, "/");		
 
 	/* default configuration location:
 	 */
-	strcpy(config.files.default_config_loc, cwd);
-	strcat(config.files.default_config_loc, "/config/default.kbd");
+	strcpy(config.files.default_config_loc, beebem_home_config);
+	strcat(config.files.default_config_loc, "/default.kbd");
+	if (access(config.files.default_config_loc,0) != 0) { // home override does not exist
+		strcpy(config.files.default_config_loc, cwd);
+		strcat(config.files.default_config_loc, "/config/default.kbd");
+	}
 
 	/* forced configuration location:
 	 */
-	strcpy(config.files.forced_config_loc, cwd);
-	strcat(config.files.forced_config_loc, "/config/forced.kbd");
+	strcpy(config.files.forced_config_loc, beebem_home_config);
+	strcat(config.files.forced_config_loc, "/forced.kbd");
+	if (access(config.files.forced_config_loc,0) != 0) { // home override does not exist
+		strcpy(config.files.forced_config_loc, cwd);
+		strcat(config.files.forced_config_loc, "/config/forced.kbd");
+	}
 
 	/* Default disc images dir:
 	 */
-	strcpy(config.files.disc_images_dir, cwd);
-	strcat(config.files.disc_images_dir, "/discs/");
+	strcpy(config.files.disc_images_dir, "/media/");
 
 	/* Default save state dir:
  	 */
-	strcpy(config.files.save_state_dir, cwd);
-	strcat(config.files.save_state_dir, "/saves/");
+	strcpy(config.files.save_state_dir, beebem_home_saves);  // i.e.  ~/.beebem/saves/
+	strcat(config.files.save_state_dir, "/");		
 
 	/* Keyboard files archive dir:
 	 */
-	strcpy(config.files.kbd_files_dir, cwd);
-	strcat(config.files.kbd_files_dir, "/kbd/");
+	strcpy(config.files.kbd_files_dir, beebem_home_kbd);  // i.e.  ~/.beebem/kbd/
+	strcat(config.files.kbd_files_dir, "/");
 
 	/* Virtual keyboard graphic location:
 	 */

@@ -390,6 +390,7 @@ int BBC_Keyboard_SaveConfig(void)
 	FILE *output = stdout;
 
 	char buf[MAX_DIR_LEN], *ext_p, *filename_p;
+	char specific_kbd_file[MAX_DIR_LEN];
 
 	/* Do nothing if no disc in drive 0:
 	 */
@@ -411,11 +412,13 @@ int BBC_Keyboard_SaveConfig(void)
 
 	/* Calc. output filename:
 	 */
-	strncpy(buf, config.drive_0_path, strlen(config.drive_0_path)-strlen(ext_p));
-	buf[strlen(config.drive_0_path)-strlen(ext_p)]='\0';
+	strcpy(specific_kbd_file, config.files.kbd_files_dir);
+	strcat(specific_kbd_file, filename_p);
+	strncpy(buf, specific_kbd_file, strlen(specific_kbd_file)-strlen(ext_p));
+	buf[strlen(specific_kbd_file)-strlen(ext_p)]='\0';
 	strcat(buf, ".kbd");
 
-//	printf("[%s] [%s]\n", config.drive_0_path, buf);
+//	printf("[%s] [%s]\n", specific_kbd_file, buf);
 
 	/* Open output file for writing:
 	 */
