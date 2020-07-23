@@ -1,3 +1,7 @@
 final/*
 *.o
+beebem
+dist/beebem
+dist/beebem.opk
+gui/libeg.a
 
