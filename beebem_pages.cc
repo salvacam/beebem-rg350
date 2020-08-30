@@ -941,7 +941,7 @@ static EG_BOOL Menu_Make(SDL_Surface *frame_buffer_p, BeebEm_Pages *gui_p)
 				r2.y++;
 
 				gui_p->menu.lbl_title = EG_Label_Create("menu_title", title_col
-				 , EG_LABEL_ALIGN_CENTER, "BeebEm for RG350 (0.6.2) based on GP2X (" VERSION ")", C_1_1(r2, 1, 2));
+				 , EG_LABEL_ALIGN_CENTER, "BeebEm for JZ47xx (0.6.3) based on GP2X (" VERSION ")", C_1_1(r2, 1, 2));
 				(void) EG_Window_AddWidget(gui_p->menu.win, gui_p->menu.lbl_title);
 
 	/* Box around list of pages:

@@ -19,7 +19,7 @@
 
 
 #define BEEBEM_PAGES_QUIT_T "Quit BeebEm:"
-#define BEEBEM_PAGES_QUIT_M "Quit BeebEm and return to RG350 menu?"
+#define BEEBEM_PAGES_QUIT_M "Quit BeebEm and return to device menu?"
 
 
 #define BEEBEM_PAGES_LOADSTATEFAILED_T "Loading state FAILED:"
@@ -67,29 +67,29 @@
 
 
 #define BEEBCONFIG_IMAGEDOESNOTEXIST_T "Loading disc image failed:"
-#define BEEBCONFIG_IMAGEDOESNOTEXIST_M "The supplied command line disc image filename does not exist on the filesystem.\n\nPlease check the filename is correct.\n\n(Remember RG350 filenames are case sensitive. So MyImage does not equal 'myimage'.)"
+#define BEEBCONFIG_IMAGEDOESNOTEXIST_M "The supplied command line disc image filename does not exist on the filesystem.\n\nPlease check the filename is correct.\n\n(Remember filenames are case sensitive. So MyImage does not equal 'myimage'.)"
 
 #define BEEBCONFIG_ILLEGALFILEEXTENSION_T BEEBCONFIG_IMAGEDOESNOTEXIST_T
 #define BEEBCONFIG_ILLEGALFILEEXTENSION_M "The supplied command line disc image filename does not have an .ssd or .dsd file extension.\n\nOnly disc images ending in .ssd or .dsd images are compatible with this version of BeebEm."
 
 #define BEEBCONFIG_NOMAPPINGFILE_T "No associated mapping file found:"
-#define BEEBCONFIG_NOMAPPINGFILE_M "There does not seem to be a keyboard mapping file associated with this disc image.\n\nSo falling back to default values instead.\n\nIn order to play this game, you may need to reconfigure some of the RG350 buttons manually.\n\nOnce you have mapped the correct keys, press the 'Save game configuration' button on the main menu to store them for next time."
+#define BEEBCONFIG_NOMAPPINGFILE_M "There does not seem to be a keyboard mapping file associated with this disc image.\n\nSo falling back to default values instead.\n\nIn order to play this game, you may need to reconfigure some of the device buttons manually.\n\nOnce you have mapped the correct keys, press the 'Save game configuration' button on the main menu to store them for next time."
 
 
 #define BEEBMEM_READROMERROR_T "Read ROM error:"
-#define BEEBMEM_READROMERROR_M "Cannot open ROM image file '%s'!"
+#define BEEBMEM_READROMERROR_M "Cannot open ROM image file '%s'! Need roms called 'os12','basic','acorn_dnfs' lowercase, no file extension, each 16384 bytes"
 
 #define BEEBMEM_WRONGROMIMAGESIZE_T BEEBMEM_READROMERROR_T
-#define BEEBMEM_WRONGROMIMAGESIZE_M "ROM image '%s' is the wrong size!"
+#define BEEBMEM_WRONGROMIMAGESIZE_M "ROM image '%s' is the wrong size! Need roms called 'os12','basic','acorn_dnfs' lowercase, no file extension, each 16384 bytes"
 
 #define BEEBMEM_COULDNOTOPENROMIMAGE_T BEEBMEM_READROMERROR_T
-#define BEEBMEM_COULDNOTOPENROMIMAGE_M "Could not open ROM image '%s'."
+#define BEEBMEM_COULDNOTOPENROMIMAGE_M "Could not open ROM image '%s'. Need roms called 'os12','basic','acorn_dnfs' lowercase, no file extension, each 16384 bytes"
 
 #define BEEBMEM_COULDNOTREADOSROM_T BEEBMEM_READROMERROR_T
-#define BEEBMEM_COULDNOTREADOSROM_M "Could not open OS ROM image '%s'!"
+#define BEEBMEM_COULDNOTREADOSROM_M "Could not open OS ROM image '%s'! Need roms called 'os12','basic','acorn_dnfs' lowercase, no file extension, each 16384 bytes"
 
 #define BEEBMEM_OSROMWRONGSIZE_T BEEBMEM_READROMERROR_T
-#define BEEBMEM_OSROMWRONGSIZE_M "The OS ROM is the wrong size!"
+#define BEEBMEM_OSROMWRONGSIZE_M "The OS ROM is the wrong size! Need roms called 'os12','basic','acorn_dnfs' lowercase, no file extension, each 16384 bytes"
 
 
 #define FILESELECTOR_UNABLETOOPENDIR_T "File selector:"
