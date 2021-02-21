@@ -522,22 +522,38 @@ int main(int argc,char *argv[]) {
 							keysym = gp2xButtonToSDLK(GP2X_BUTTON_RIGHT);
 							HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
 							}
+						#ifdef MIYOO_MODE
+						if (event.key.keysym.sym == SDLK_LALT)
+						#else
 						if (event.key.keysym.sym == SDLK_LCTRL)
+						#endif
 							{
 							keysym = gp2xButtonToSDLK(GP2X_BUTTON_A);
 							HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
 							}
+						#ifdef MIYOO_MODE
+						if (event.key.keysym.sym == SDLK_LCTRL)
+						#else
 						if (event.key.keysym.sym == SDLK_LALT)
+						#endif
 							{
 							keysym = gp2xButtonToSDLK(GP2X_BUTTON_B);
 							HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
 							}
+						#ifdef MIYOO_MODE
+						if (event.key.keysym.sym == SDLK_LSHIFT)
+						#else
 						if (event.key.keysym.sym == SDLK_SPACE)
+						#endif
 							{
 							keysym = gp2xButtonToSDLK(GP2X_BUTTON_X);
 							HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
 							}
+						#ifdef MIYOO_MODE
+						if (event.key.keysym.sym == SDLK_SPACE)
+						#else
 						if (event.key.keysym.sym == SDLK_LSHIFT)
+						#endif
 							{
 							keysym = gp2xButtonToSDLK(GP2X_BUTTON_Y);
 							HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
