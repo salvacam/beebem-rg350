@@ -1,0 +1,69 @@
+TOOLCHAIN = /opt/miyoo/usr
+SDL_CONFIG = $(TOOLCHAIN)/arm-miyoo-linux-uclibcgnueabi/sysroot/usr/bin/sdl-config
+
+#arm-open2x-linux-
+#/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/c++/4.1.1
+#/opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1
+
+#INCLUDES = -I. -I/usr/local/open2x/include/c++ `sdl-open2x-config --cflags`
+#INCLUDES = -I. -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/c++/4.1.1 `arm-open2x-linux-sdl-config --cflags`
+INCLUDES = -I. `$(SDL_CONFIG) --cflags`
+
+
+#DEPINCLUDES = $(INCLUDES) $(SDINCLUDES) -I/usr/local/open2x/include/linux -I/usr/local/open2x/include/c++
+#DEPINCLUDES = $(INCLUDES) $(SDINCLUDES) -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/arm-open2x-linux/include/linux -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/c++/4.1.1
+#DEPINCLUDES = $(INCLUDES) $(SDINCLUDES) -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/arm-open2x-linux/include/linux
+
+#CC = open2x-gcc -O6 -mcpu=arm920 -mtune=arm920t -msoft-float -ffast-math -falign-functions=32 -finline-functions -funroll-all-loops
+#CC = arm-open2x-linux-gcc -O6 -mcpu=arm920 -mtune=arm920t -msoft-float -ffast-math -falign-functions=32 -finline-functions -funroll-all-loops
+CC = $(TOOLCHAIN)/bin/arm-linux-gcc
+
+
+#CFLAGS = $(INCLUDES) $(SDINCLUDES) -Wall -g -DBEEB_DOTIME $(RESOURCES) -DGP2X=1 -DSOUNDSUPPORT
+# -DSOUNDSUPPORT
+CFLAGS = $(INCLUDES) -Wall -g -DBEEB_DOTIME -DMIYOO_MODE -DSOUNDSUPPORT $(RESOURCES) -O3 -march=armv5te -mtune=arm926ej-s  
+# -DEG_DEBUG
+
+#RESOURCES=-DROMS_DIR=\"./romimg/\" -DRC_DIR=\"./\" -DOS_DIR=\"./romimg/\" -DDEFAULT_DISC=\"S:80:/mnt/sd/beebem/Zalaga.ssd\"  -DVERSION=\"0.6\"
+RESOURCES= -DVERSION=\"0.6\"
+
+#LINKFLAGS = -lstdc++ `sdl-open2x-config --libs` -lm -s --static
+#LINKFLAGS = -lstdc++ `arm-open2x-linux-sdl-config --libs` -lm -s --static
+LINKFLAGS = -lstdc++ `$(SDL_CONFIG) --libs`
+LIBS =
+LIBFILES = gui/libeg.a
+
+SRCS =  6502core.cc beebmem.cc beebwin.cc disc8271.cc main.cc mode7font.c\
+        sysvia.cc uservia.cc via.cc video.cc beebsound.cc atodconv.cc sdl.cc \
+        keyboard.cc beebconfig.cc beebem_pages.cc screensaver.c stick.cc \
+        virtualkeyboard.cc button.c fileselector.cc progressdialog.cc \
+        keyboardmapper.cc messagebox.cc uefstate.cc listbox.cc fileselector_saveas.cc dma.cc
+
+OBJS =  6502core.o beebmem.o beebwin.o disc8271.o main.o  mode7font.o\
+        sysvia.o uservia.o via.o video.o beebsound.o atodconv.o sdl.o \
+        keyboard.o beebconfig.o beebem_pages.o screensaver.o stick.o \
+        virtualkeyboard.o button.o fileselector.o progressdialog.o \
+        keyboardmapper.o messagebox.o uefstate.o listbox.o fileselector_saveas.o dma.o
+
+
+.cc.o:
+	$(CC) -c $(CFLAGS) $<
+
+beebem: $(OBJS) $(LIBFILES)
+	$(CC) -o beebem $(OBJS) $(LIBFILES) $(LIBS) $(LINKFLAGS)
+
+gui/libeg.a:
+	(cd gui; make -f Makefile_RS97)
+
+depend:
+	makedepend -- $(DEPINCLUDES) $(INCLUDES) $(CFLAGS) $(LINKFLAGS) -- $(SRCS)
+
+clean:
+	rm -f $(OBJS) beebem
+
+reallyclean:
+	make clean
+	(cd gui; make clean)
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.
+

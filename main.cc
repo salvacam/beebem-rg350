@@ -483,8 +483,11 @@ int main(int argc,char *argv[]) {
 //						SaveUEFState("test.uef");
 //						break;
 //					}
-
+					#ifdef MIYOO_MODE
+					if (event.key.keysym.sym == SDLK_BACKSPACE || event.key.keysym.sym == SDLK_RETURN) {
+					#else
 					if (event.key.keysym.sym == SDLK_BACKSPACE) {
+					#endif
 						if (mainWin->OnScreenKeyboardShown()) {
 							mainWin->HideOnScreenKeyboard();
 							cls();
@@ -572,7 +575,11 @@ int main(int argc,char *argv[]) {
 						break;
 					}
 */
+					#ifdef MIYOO_MODE
+					if (event.key.keysym.sym == SDLK_TAB || event.key.keysym.sym == SDLK_RCTRL) {
+					#else
 					if (event.key.keysym.sym == SDLK_TAB) {
+					#endif
 						mainWin->ShiftBooted = false;
 						BeebKeyUp(0, 0);
 
